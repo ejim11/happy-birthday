@@ -1264,3 +1264,7 @@
 {"timestamp":"02:58:32.042","source":"Server","level":"LOG","message":"✓ Compiled in 35ms"}
 {"timestamp":"02:58:39.805","source":"Server","level":"LOG","message":"✓ Compiled in 37ms"}
 {"timestamp":"02:58:57.106","source":"Server","level":"LOG","message":"✓ Compiled in 19ms"}
+{"timestamp":"03:00:57.876","source":"Browser","level":"ERROR","message":"unhandledRejection: i: Failed to connect to MetaMask"}
+{"timestamp":"03:00:57.878","source":"Server","level":"ERROR","message":"[browser] \"\\u001b[31m⨯ unhandledRejection: i: Failed to connect to MetaMask\\u001b[39m\\n\\u001b[31m    at Object.connect (chrome-extension://nkbihfbeogaeaoehlefnkodbefgpgknn/scripts/inpage.js:1:63541)\\n    at async s (chrome-extension://nkbihfbeogaeaoehlefnkodbefgpgknn/scripts/inpage.js:1:61044)\\u001b[39m\""}
+{"timestamp":"03:00:57.878","source":"Browser","level":"ERROR","message":"\u001b[31m⨯ unhandledRejection: i: Failed to connect to MetaMask\u001b[39m\n\u001b[31m    at Object.connect (chrome-extension://nkbihfbeogaeaoehlefnkodbefgpgknn/scripts/inpage.js:1:63541)\n    at async s (chrome-extension://nkbihfbeogaeaoehlefnkodbefgpgknn/scripts/inpage.js:1:61044)\u001b[39m"}
+{"timestamp":"03:08:24.365","source":"Server","level":"LOG","message":"✓ Compiled in 169ms"}

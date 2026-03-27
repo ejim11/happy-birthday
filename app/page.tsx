@@ -77,12 +77,12 @@ Happy birthday, you absolute problem 😏🎉`,
   {
     image: book08,
     label: "08",
-    text: "This smile right here? Yeah… this is my favorite place.",
+    text: "You carry yourself like someone who knows her worth — and I love that about you.",
   },
   {
     image: book09,
     label: "09",
-    text: "You carry yourself like someone who knows her worth — and I love that about you.",
+    text: "This smile right here? Yeah… this is my favorite place.",
   },
   {
     image: book10,

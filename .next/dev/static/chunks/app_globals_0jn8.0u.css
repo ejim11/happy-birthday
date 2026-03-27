@@ -1,0 +1,249 @@
+/* [project]/app/globals.css [app-client] (css) */
+:root {
+  --bg: linear-gradient(135deg, #e7f7d3 0%, #e6f7d6 7.14%, #e6f6da 14.29%, #e5f6dd 21.43%, #e5f5e0 28.57%, #e4f5e3 35.71%, #e4f5e6 42.86%, #e3f4ea 50%, #e3f4ed 57.14%, #e2f3f0 64.29%, #e2f3f3 71.43%, #e1f2f6 78.57%, #e1f2f9 85.71%, #e0f1fc 92.86%, #e0f1ff 100%);
+  --card: #ffffffb8;
+  --border: #ffffffb3;
+  --text: #172022;
+  --muted: #415056;
+  --shadow: 0 20px 60px #1622221f;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  min-height: 100vh;
+  color: var(--text);
+  background: var(--bg);
+  margin: 0;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+img {
+  max-width: 100%;
+}
+
+.page-shell {
+  padding: 32px 20px 80px;
+}
+
+.hero {
+  grid-template-columns: 1.1fr .9fr;
+  align-items: center;
+  gap: 32px;
+  max-width: 1200px;
+  margin: 0 auto 72px;
+  display: grid;
+}
+
+.hero-copy, .hero-card, .memory-card, .footer {
+  -webkit-backdrop-filter: blur(16px);
+  backdrop-filter: blur(16px);
+  background: var(--card);
+  border: 1px solid var(--border);
+  box-shadow: var(--shadow);
+}
+
+.hero-copy {
+  border-radius: 32px;
+  padding: 40px;
+}
+
+.eyebrow {
+  text-transform: uppercase;
+  letter-spacing: .18em;
+  color: var(--muted);
+  margin: 0 0 14px;
+  font-size: 12px;
+}
+
+h1 {
+  margin: 0;
+  font-size: clamp(2.8rem, 7vw, 5.5rem);
+  line-height: .95;
+}
+
+.lead, .signoff, .audio-note, .memory-copy p, .footer p {
+  font-size: clamp(1rem, 1.5vw, 1.15rem);
+  line-height: 1.7;
+}
+
+.lead {
+  margin: 22px 0 0;
+}
+
+.muted {
+  color: var(--muted);
+}
+
+.signoff {
+  margin-top: 24px;
+  font-weight: 700;
+}
+
+.audio-note {
+  color: var(--muted);
+  background: #ffffffb3;
+  border-radius: 18px;
+  margin-top: 18px;
+  padding: 14px 16px;
+}
+
+.audio-note code {
+  font-size: .95em;
+}
+
+.hero-card {
+  border-radius: 32px;
+  padding: 18px;
+}
+
+.poster-wrap {
+  border-radius: 24px;
+  width: 100%;
+  min-height: 720px;
+  position: relative;
+  overflow: hidden;
+}
+
+.poster, .memory-image {
+  object-fit: cover;
+}
+
+.timeline {
+  gap: 26px;
+  max-width: 1100px;
+  margin: 0 auto;
+  display: grid;
+}
+
+.memory-card {
+  border-radius: 28px;
+  grid-template-columns: minmax(280px, 520px) 1fr;
+  align-items: center;
+  gap: 22px;
+  padding: 18px;
+  display: grid;
+}
+
+.memory-card:nth-child(2n) {
+  grid-template-columns: 1fr minmax(280px, 520px);
+}
+
+.memory-card:nth-child(2n) .memory-image-wrap {
+  order: 2;
+}
+
+.memory-card:nth-child(2n) .memory-copy {
+  order: 1;
+}
+
+.memory-image-wrap {
+  border-radius: 22px;
+  width: 100%;
+  min-height: 600px;
+  position: relative;
+  overflow: hidden;
+}
+
+.memory-copy {
+  padding: 10px 18px;
+}
+
+.memory-number {
+  letter-spacing: .2em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin: 0 0 12px;
+  font-size: 14px;
+}
+
+.memory-copy p:last-child {
+  margin: 0;
+  font-size: clamp(1.2rem, 2vw, 1.75rem);
+  line-height: 1.5;
+}
+
+.footer {
+  text-align: center;
+  border-radius: 28px;
+  max-width: 1100px;
+  margin: 32px auto 0;
+  padding: 28px;
+}
+
+.footer-small {
+  color: var(--muted);
+}
+
+.music-button {
+  z-index: 20;
+  color: #fff;
+  cursor: pointer;
+  background: #101818e6;
+  border: 0;
+  border-radius: 999px;
+  gap: 4px;
+  padding: 14px 18px;
+  display: grid;
+  position: fixed;
+  bottom: 18px;
+  right: 18px;
+  box-shadow: 0 20px 45px #0003;
+}
+
+.music-button span {
+  opacity: .72;
+  font-size: 12px;
+}
+
+.music-button strong {
+  font-size: 14px;
+}
+
+@media (max-width: 900px) {
+  .page-shell {
+    padding: 16px 14px 96px;
+  }
+
+  .hero, .memory-card, .memory-card:nth-child(2n) {
+    grid-template-columns: 1fr;
+  }
+
+  .hero-copy {
+    padding: 28px 22px;
+  }
+
+  .poster-wrap {
+    min-height: 540px;
+  }
+
+  .memory-card:nth-child(2n) .memory-image-wrap, .memory-card:nth-child(2n) .memory-copy {
+    order: initial;
+  }
+
+  .memory-image-wrap {
+    min-height: 500px;
+  }
+
+  .memory-copy {
+    padding: 4px 8px 12px;
+  }
+
+  .memory-copy p:last-child {
+    font-size: 1.12rem;
+  }
+
+  .music-button {
+    bottom: 14px;
+    left: 14px;
+    right: 14px;
+  }
+}
+
+/*# sourceMappingURL=app_globals_0jn8.0u.css.map*/

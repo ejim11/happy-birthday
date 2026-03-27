@@ -12,8 +12,47 @@ var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist
 ;
 ;
 const metadata = {
-    title: 'Happy Birthday Naawal',
-    description: 'A birthday website made with love for Naawal Farah.'
+    title: "Happy Birthday Naawal 🎉 | Special Birthday Website",
+    description: "A beautifully crafted birthday website made with love for Naawal Farah. Celebrating her 30th with memories, moments, and magic.",
+    keywords: [
+        "Happy Birthday Naawal",
+        "Naawal Farah",
+        "Birthday website",
+        "30th birthday",
+        "birthday surprise"
+    ],
+    authors: [
+        {
+            name: "Made with love ❤️"
+        }
+    ],
+    openGraph: {
+        title: "Happy Birthday Naawal 🎉",
+        description: "A special birthday experience made just for Naawal Farah. Not your regular birthday message 😉",
+        url: "https://happybirthdaynaawal.com",
+        siteName: "HappyBirthdayNaawal",
+        images: [
+            {
+                url: "/images/00-book.jpeg",
+                width: 1200,
+                height: 630,
+                alt: "Happy Birthday Naawal"
+            }
+        ],
+        locale: "en_US",
+        type: "website"
+    },
+    twitter: {
+        card: "summary_large_image",
+        title: "Happy Birthday Naawal 🎉",
+        description: "A special birthday experience made just for Naawal Farah 💫",
+        images: [
+            "/images/00-book.jpeg"
+        ]
+    },
+    icons: {
+        icon: "/favicon.ico"
+    }
 };
 function RootLayout({ children }) {
     return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("html", {
@@ -22,12 +61,12 @@ function RootLayout({ children }) {
             children: children
         }, void 0, false, {
             fileName: "[project]/app/layout.tsx",
-            lineNumber: 12,
+            lineNumber: 56,
             columnNumber: 7
         }, this)
     }, void 0, false, {
         fileName: "[project]/app/layout.tsx",
-        lineNumber: 11,
+        lineNumber: 55,
         columnNumber: 5
     }, this);
 }

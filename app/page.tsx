@@ -1,88 +1,190 @@
 "use client";
 
-import Image from "next/image";
+import Image, { StaticImageData } from "next/image";
 import { useEffect, useMemo, useRef, useState } from "react";
-import { motion } from "framer-motion";
+import { AnimatePresence, motion } from "framer-motion";
 
-const memories = [
+import book00 from "../assets/images/00-book.jpeg";
+import book01 from "../assets/images/01-look-1.jpeg";
+import book02 from "../assets/images/02-dinner-red.jpeg";
+import book03 from "../assets/images/03-snow.jpeg";
+import book04 from "../assets/images/04-dinner-black.jpeg";
+import book05 from "../assets/images/05-mirror-black.jpeg";
+import book06 from "../assets/images/06-leather.jpeg";
+import book07 from "../assets/images/07-beach.jpeg";
+import book08 from "../assets/images/08-green-yellow.jpeg";
+import book09 from "../assets/images/09-closeup-smile.jpeg";
+import book10 from "../assets/images/10-closeup-black.jpeg";
+
+type Memory = {
+  image: StaticImageData;
+  text: string;
+  label: string;
+  title?: string;
+};
+
+const SLIDE_DURATION = 5200;
+const TEXT_TYPING_SPEED = 18;
+
+const memories: Memory[] = [
   {
-    image: "/images/01-look-1.jpeg",
+    image: book00,
+    label: "OPENING NOTE",
+    title: "Happy 30th Birthday, Naawal",
+    text: `It’s your 30th, so I figured… normal birthday messages just wouldn’t cut it. So yeah, I made you a whole little website — because clearly, you’re not a “just send a text” kind of person 😌
+
+This is for your smiles, your moments, your beauty, and all the little things that make you you (and make the rest of us look like we need to step our game up).
+
+Enjoy your special corner of the internet — carefully curated by me, because nothing about you deserves low effort.
+
+Happy birthday, you absolute problem 😏🎉`,
+  },
+  {
+    image: book01,
+    label: "01",
     text: "You didn’t just grow a year older… you somehow got even more beautiful. I’m still trying to understand how that’s fair.",
   },
   {
-    image: "/images/02-dinner-red.jpeg",
+    image: book02,
+    label: "02",
     text: "Every picture of you feels like proof that God took His time with you.",
   },
   {
-    image: "/images/03-snow.jpeg",
+    image: book03,
+    label: "03",
     text: "If I had to choose a favorite version of you, I’d fail… because you outdo yourself every single time.",
   },
   {
-    image: "/images/04-dinner-black.jpeg",
+    image: book04,
+    label: "04",
     text: "You make looking this good seem effortless, but I know it’s just you being naturally you.",
   },
   {
-    image: "/images/05-mirror-black.jpeg",
+    image: book05,
+    label: "05",
     text: "Some people take pictures… you create moments people wish they were in.",
   },
   {
-    image: "/images/06-leather.jpeg",
+    image: book06,
+    label: "06",
     text: "I hope you see what I see when I look at you — because it’s honestly something special.",
   },
   {
-    image: "/images/07-beach.jpeg",
+    image: book07,
+    label: "07",
     text: "You’re not just beautiful, you’re the kind of beautiful that makes people pause.",
   },
   {
-    image: "/images/08-green-yellow.jpeg",
+    image: book08,
+    label: "08",
     text: "This smile right here? Yeah… this is my favorite place.",
   },
   {
-    image: "/images/09-closeup-smile.jpeg",
+    image: book09,
+    label: "09",
     text: "You carry yourself like someone who knows her worth — and I love that about you.",
   },
   {
-    image: "/images/10-closeup-black.jpeg",
+    image: book10,
+    label: "10",
     text: "If this is you now, I can’t wait to see how even more amazing you become.",
   },
 ];
 
-const fadeUp = {
-  hidden: { opacity: 0, y: 40 },
-  show: {
-    opacity: 1,
-    y: 0,
-    transition: {
-      duration: 0.8,
-      ease: [0.22, 1, 0.36, 1],
-    },
-  },
-};
+function useTypedText(
+  text: string,
+  active: boolean,
+  speed = TEXT_TYPING_SPEED,
+) {
+  const [displayed, setDisplayed] = useState(active ? "" : text);
 
-const imageReveal = {
-  hidden: { opacity: 0, scale: 0.96 },
-  show: {
-    opacity: 1,
-    scale: 1,
-    transition: {
-      duration: 0.9,
-      ease: [0.22, 1, 0.36, 1],
-    },
-  },
-};
+  useEffect(() => {
+    if (!active) {
+      setDisplayed("");
+      return;
+    }
+
+    setDisplayed("");
+    let index = 0;
+
+    const interval = window.setInterval(() => {
+      index += 1;
+      setDisplayed(text.slice(0, index));
+
+      if (index >= text.length) {
+        window.clearInterval(interval);
+      }
+    }, speed);
+
+    return () => window.clearInterval(interval);
+  }, [text, active, speed]);
+
+  return displayed;
+}
+
+function SlideText({
+  memory,
+  index,
+  total,
+  active,
+}: {
+  memory: Memory;
+  index: number;
+  total: number;
+  active: boolean;
+}) {
+  const typedText = useTypedText(memory.text, active);
+
+  return (
+    <motion.div
+      className="cinema-content"
+      initial={{ opacity: 0, y: 28 }}
+      animate={{ opacity: 1, y: 0 }}
+      exit={{ opacity: 0, y: 18 }}
+      transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
+    >
+      <p className="cinema-kicker">
+        {memory.label} <span>•</span> {String(index + 1).padStart(2, "0")}/
+        {String(total).padStart(2, "0")}
+      </p>
+
+      {memory.title ? <h1>{memory.title}</h1> : null}
+
+      <p className={memory.title ? "cinema-text opening-text" : "cinema-text"}>
+        {typedText}
+        <span className="typing-caret" aria-hidden="true">
+          |
+        </span>
+      </p>
+    </motion.div>
+  );
+}
 
 export default function HomePage() {
   const audioRef = useRef<HTMLAudioElement | null>(null);
+
+  const [currentIndex, setCurrentIndex] = useState(0);
   const [isPlaying, setIsPlaying] = useState(false);
   const [autoplayBlocked, setAutoplayBlocked] = useState(false);
+  const [pausedByUser, setPausedByUser] = useState(false);
+
+  useEffect(() => {
+    if (pausedByUser) return;
+
+    const interval = window.setInterval(() => {
+      setCurrentIndex((prev) => (prev + 1) % memories.length);
+    }, SLIDE_DURATION);
+
+    return () => window.clearInterval(interval);
+  }, [pausedByUser]);
 
   useEffect(() => {
     const audio = audioRef.current;
     if (!audio) return;
 
-    audio.volume = 0.7;
+    audio.volume = 0.72;
 
-    const tryAutoplay = async () => {
+    const tryPlay = async () => {
       try {
         await audio.play();
         setIsPlaying(true);
@@ -93,7 +195,7 @@ export default function HomePage() {
       }
     };
 
-    void tryAutoplay();
+    void tryPlay();
 
     const startOnFirstInteraction = async () => {
       if (!audio.paused) return;
@@ -108,16 +210,13 @@ export default function HomePage() {
     };
 
     const onceOptions = { once: true } as AddEventListenerOptions;
-
     window.addEventListener("click", startOnFirstInteraction, onceOptions);
     window.addEventListener("touchstart", startOnFirstInteraction, onceOptions);
-    window.addEventListener("scroll", startOnFirstInteraction, onceOptions);
     window.addEventListener("keydown", startOnFirstInteraction, onceOptions);
 
     return () => {
       window.removeEventListener("click", startOnFirstInteraction);
       window.removeEventListener("touchstart", startOnFirstInteraction);
-      window.removeEventListener("scroll", startOnFirstInteraction);
       window.removeEventListener("keydown", startOnFirstInteraction);
     };
   }, []);
@@ -130,23 +229,37 @@ export default function HomePage() {
       try {
         await audio.play();
         setIsPlaying(true);
+        setAutoplayBlocked(false);
       } catch {
         setIsPlaying(false);
       }
-    } else {
-      audio.pause();
-      setIsPlaying(false);
+      return;
     }
+
+    audio.pause();
+    setIsPlaying(false);
   };
 
-  const yearLabel = useMemo(() => new Date().getFullYear(), []);
+  const goNext = () => {
+    setPausedByUser(true);
+    setCurrentIndex((prev) => (prev + 1) % memories.length);
+  };
+
+  const goPrev = () => {
+    setPausedByUser(true);
+    setCurrentIndex((prev) => (prev - 1 + memories.length) % memories.length);
+  };
+
+  const toggleAutoPlaySlides = () => {
+    setPausedByUser((prev) => !prev);
+  };
+
+  const year = useMemo(() => new Date().getFullYear(), []);
+
+  const currentMemory = memories[currentIndex];
 
   return (
-    <main className="page-shell">
-      <div className="bg-orb orb-1" />
-      <div className="bg-orb orb-2" />
-      <div className="bg-orb orb-3" />
-
+    <main className="cinema-page">
       <audio ref={audioRef} loop preload="auto">
         <source
           src="/music/happy-birthday-simi-adekunle.mp3"
@@ -154,144 +267,97 @@ export default function HomePage() {
         />
       </audio>
 
-      <button
-        className="music-button"
-        onClick={toggleAudio}
-        aria-label="Toggle music playback"
-      >
-        <span>{isPlaying ? "Now playing" : "Tap to play"}</span>
-        <strong>Happy Birthday — Simi & Adekunle</strong>
-      </button>
+      <div className="cinema-topbar">
+        <div className="topbar-left">
+          <div className="brand-pill">for Naawal Farah ✨</div>
+        </div>
 
-      <motion.section
-        className="hero"
-        initial="hidden"
-        animate="show"
-        variants={{
-          hidden: {},
-          show: {
-            transition: {
-              staggerChildren: 0.15,
-            },
-          },
-        }}
-      >
-        <motion.div className="hero-copy" variants={fadeUp}>
-          <p className="eyebrow">for Naawal Farah</p>
-          <h1>Happy 30th Birthday, Naawal.</h1>
-
-          <p className="lead">
-            It’s your 30th, so I figured… normal birthday messages just wouldn’t
-            cut it. So yeah, I made you a whole little website — because
-            clearly, you’re not a “just send a text” kind of person 😌
-          </p>
-
-          <p className="lead muted">
-            This is for your smiles, your moments, your beauty, and all the
-            little things that make you <em>you</em> (and make the rest of us
-            look like we need to step our game up).
-          </p>
-
-          <p className="lead muted">
-            Enjoy your special corner of the internet — carefully curated by me,
-            because nothing about you deserves low effort.
-          </p>
-
-          <p className="signoff">Happy birthday, you absolute problem 😏🎉</p>
-
-          {autoplayBlocked && (
-            <p className="audio-note">
-              Your browser blocked autoplay with sound — tap, scroll, or use the
-              music button and it’ll start.
-            </p>
-          )}
-        </motion.div>
-
-        <motion.div className="hero-card" variants={imageReveal}>
-          <div className="poster-wrap">
-            <Image
-              src="/images/00-book.jpeg"
-              alt="Birthday poster"
-              fill
-              priority
-              className="poster"
-              sizes="(max-width: 900px) 100vw, 40vw"
-            />
-            <div className="image-shine" />
-          </div>
-        </motion.div>
-      </motion.section>
-
-      <section className="timeline">
-        {memories.map((memory, index) => (
-          <motion.article
-            className="memory-card"
-            key={memory.image}
-            variants={{
-              hidden: { opacity: 0, y: 60 },
-              show: {
-                opacity: 1,
-                y: 0,
-                transition: {
-                  duration: 0.85,
-                  ease: [0.22, 1, 0.36, 1],
-                },
-              },
-            }}
-            initial="hidden"
-            whileInView="show"
-            viewport={{ once: true, amount: 0.25 }}
+        <div className="topbar-right">
+          <button
+            type="button"
+            className="music-button"
+            onClick={toggleAudio}
+            aria-label="Toggle birthday music"
           >
-            <motion.div
-              className="memory-image-wrap"
-              initial={{ opacity: 0, scale: 0.95 }}
-              whileInView={{ opacity: 1, scale: 1 }}
-              viewport={{ once: true, amount: 0.3 }}
-              transition={{ duration: 0.9, ease: [0.22, 1, 0.36, 1] }}
-            >
-              <Image
-                src={memory.image}
-                alt={`Naawal birthday memory ${index + 1}`}
-                fill
-                className="memory-image"
-                sizes="(max-width: 900px) 100vw, 50vw"
-              />
-              <div className="image-shine" />
-            </motion.div>
+            <span>{isPlaying ? "Now playing" : "Tap to play"}</span>
+            <strong>Happy Birthday 🎵</strong>
+          </button>
+        </div>
+      </div>
 
-            <motion.div
-              className="memory-copy"
-              initial={{ opacity: 0, x: index % 2 === 0 ? 30 : -30 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true, amount: 0.35 }}
-              transition={{
-                duration: 0.8,
-                ease: [0.22, 1, 0.36, 1],
-                delay: 0.1,
-              }}
-            >
-              <p className="memory-number">0{index + 1}</p>
-              <p>{memory.text}</p>
-            </motion.div>
-          </motion.article>
-        ))}
+      {autoplayBlocked ? (
+        <div className="autoplay-note">
+          Your browser blocked autoplay with sound — tap anywhere or use the
+          music button.
+        </div>
+      ) : null}
+
+      <section className="cinema-stage">
+        <AnimatePresence mode="wait">
+          <motion.div
+            key={currentIndex}
+            className="cinema-image-layer"
+            initial={{ opacity: 0, scale: 1.06 }}
+            animate={{ opacity: 1, scale: 1 }}
+            exit={{ opacity: 0, scale: 0.985 }}
+            transition={{ duration: 1.2, ease: [0.22, 1, 0.36, 1] }}
+          >
+            <Image
+              src={currentMemory.image}
+              alt={`Naawal birthday photo ${currentIndex + 1}`}
+              fill
+              priority={currentIndex < 2}
+              className="cinema-image"
+              sizes="100vw"
+            />
+            <div className="cinema-overlay" />
+          </motion.div>
+        </AnimatePresence>
+
+        <div className="cinema-shell">
+          <AnimatePresence mode="wait">
+            <SlideText
+              key={`text-${currentIndex}`}
+              memory={currentMemory}
+              index={currentIndex}
+              total={memories.length}
+              active
+            />
+          </AnimatePresence>
+        </div>
+
+        <div className="cinema-controls">
+          <button type="button" className="nav-button" onClick={goPrev}>
+            ← Prev
+          </button>
+
+          <button
+            type="button"
+            className="nav-button nav-button--primary"
+            onClick={toggleAutoPlaySlides}
+          >
+            {pausedByUser ? "Resume auto" : "Pause auto"}
+          </button>
+
+          <button type="button" className="nav-button" onClick={goNext}>
+            Next →
+          </button>
+        </div>
+
+        <div className="progress-wrap" aria-hidden="true">
+          {memories.map((_, index) => (
+            <span
+              key={index}
+              className={`progress-dot ${index === currentIndex ? "is-active" : ""}`}
+            />
+          ))}
+        </div>
       </section>
 
-      <motion.footer
-        className="footer"
-        initial={{ opacity: 0, y: 40 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true, amount: 0.4 }}
-        transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
-      >
-        <p>
-          Made for Naawal Farah, with love, style, and a little unnecessary
-          effort — exactly how it should be.
-        </p>
-        <p className="footer-small">
-          {yearLabel} · happybirthdaynaawal.com vibe
-        </p>
-      </motion.footer>
+      <footer className="end-cap">
+        <p>Made with love, style, and exactly the right amount of extra.</p>
+        <span>{year} · happybirthdaynaawal.com vibe</span>
+      </footer>
     </main>
   );
 }

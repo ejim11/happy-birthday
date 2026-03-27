@@ -24,7 +24,7 @@ type Memory = {
 };
 
 const SLIDE_DURATION = 8500;
-const TEXT_TYPING_SPEED = 10;
+const TEXT_TYPING_SPEED = 8;
 
 const memories: Memory[] = [
   {
@@ -269,10 +269,10 @@ export default function HomePage() {
 
       <div className="cinema-topbar">
         <div className="topbar-left">
-          <div className="brand-pill">for Naawal Farah ✨</div>
+          <div className="brand-pill">For my baby girl, Naawal ✨</div>
         </div>
 
-        <div className="topbar-right">
+        {/* <div className="topbar-right">
           <button
             type="button"
             className="music-button"
@@ -282,7 +282,7 @@ export default function HomePage() {
             <span>{isPlaying ? "Now playing" : "Tap to play"}</span>
             <strong>Happy Birthday 🎵</strong>
           </button>
-        </div>
+        </div> */}
       </div>
 
       {autoplayBlocked ? (

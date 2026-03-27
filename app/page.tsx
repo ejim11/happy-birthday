@@ -23,8 +23,8 @@ type Memory = {
   title?: string;
 };
 
-const SLIDE_DURATION = 5200;
-const TEXT_TYPING_SPEED = 18;
+const SLIDE_DURATION = 8500;
+const TEXT_TYPING_SPEED = 10;
 
 const memories: Memory[] = [
   {

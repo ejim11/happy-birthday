@@ -159,6 +159,13 @@ body {
   object-position: center;
 }
 
+/* Desktop */
+@media (min-width: 768px) {
+  .cinema-image {
+    object-fit: cover;
+  }
+}
+
 .cinema-overlay {
   position: absolute;
   inset: 0;

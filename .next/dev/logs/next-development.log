@@ -1268,3 +1268,4 @@
 {"timestamp":"03:00:57.878","source":"Server","level":"ERROR","message":"[browser] \"\\u001b[31m⨯ unhandledRejection: i: Failed to connect to MetaMask\\u001b[39m\\n\\u001b[31m    at Object.connect (chrome-extension://nkbihfbeogaeaoehlefnkodbefgpgknn/scripts/inpage.js:1:63541)\\n    at async s (chrome-extension://nkbihfbeogaeaoehlefnkodbefgpgknn/scripts/inpage.js:1:61044)\\u001b[39m\""}
 {"timestamp":"03:00:57.878","source":"Browser","level":"ERROR","message":"\u001b[31m⨯ unhandledRejection: i: Failed to connect to MetaMask\u001b[39m\n\u001b[31m    at Object.connect (chrome-extension://nkbihfbeogaeaoehlefnkodbefgpgknn/scripts/inpage.js:1:63541)\n    at async s (chrome-extension://nkbihfbeogaeaoehlefnkodbefgpgknn/scripts/inpage.js:1:61044)\u001b[39m"}
 {"timestamp":"03:08:24.365","source":"Server","level":"LOG","message":"✓ Compiled in 169ms"}
+{"timestamp":"03:13:30.972","source":"Server","level":"LOG","message":"✓ Compiled in 98ms"}

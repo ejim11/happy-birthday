@@ -145,6 +145,12 @@ body {
   object-position: center;
 }
 
+@media (min-width: 768px) {
+  .cinema-image {
+    object-fit: cover;
+  }
+}
+
 .cinema-overlay {
   background: linear-gradient(#120a1214 0%, #120a121f 20%, #120a1252 56%, #120a12bd 100%), linear-gradient(90deg, #120a1280 0%, #120a1238 44%, #120a121f 100%);
   position: absolute;
